@@ -52,9 +52,18 @@ class AlienInvasion:
         if event.key == pygame.K_RIGHT:
         #Move the ship to the right
             self.ship.moving_right = True
-        if event.key == pygame.K_LEFT:
+        elif event.key == pygame.K_LEFT:
         #Move the ship to the left
             self.ship.moving_left = True
+        elif event.key == pygame.K_q:
+            sys.exit()
+        elif event.key == pygame.K_f:
+            #changes it to fullscreen, it sort of works but not really, will need to rework this in the future
+            #currently changes it to fullscreen but the game's resolution is still set to the original window
+            self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+            self.settings.screen_width = self.screen.get_rect().width
+            self.settings.screen_height = self.screen.get_rect().height
+            
     
     def _check_keyup_events(self,event):
         """Respond to keypress releases"""
