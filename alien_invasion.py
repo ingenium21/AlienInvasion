@@ -39,7 +39,7 @@ class AlienInvasion:
                 self._check_keyup_events(event)
 
     def _update_screen(self):
-        """Update images on teh screen and flip to a new screen"""
+        """Update images on the screen and flip to a new screen"""
         #Redarw the screen during each pass through the loop
         self.screen.fill(self.settings.bg_color)
         #draw the ship
