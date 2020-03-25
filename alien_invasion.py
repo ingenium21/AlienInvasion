@@ -3,6 +3,7 @@ import sys
 import pygame
 from Modules.settings import Settings
 from Modules.ship import Ship
+from Modules.bullets import Bullet
 
 class AlienInvasion:
     """Overrall class to manage game assets and behavior"""
@@ -19,6 +20,8 @@ class AlienInvasion:
 
         #import the ship and make an instance of it
         self.ship = Ship(self)
+        #import the bullet sprites
+        self.bullets = pygame.sprite.Group()
 
     def run_game(self):
         """Start the main loop for the game."""
@@ -26,6 +29,7 @@ class AlienInvasion:
             #Watch for keyboard and mouse events
             self._check_events()
             self.ship.update()
+            self._update_bullets()
             self._update_screen()
 
     def _check_events(self):
@@ -44,6 +48,8 @@ class AlienInvasion:
         self.screen.fill(self.settings.bg_color)
         #draw the ship
         self.ship.blitme()
+        for bullet in self.bullets.sprites():
+            bullet.draw_bullet()
         #Make the most recently drawn screen visible
         pygame.display.flip()
     
@@ -55,6 +61,8 @@ class AlienInvasion:
         elif event.key == pygame.K_LEFT:
         #Move the ship to the left
             self.ship.moving_left = True
+        elif event.key == pygame.K_SPACE:
+            self._fire_bullet()
         elif event.key == pygame.K_q:
             sys.exit()
         elif event.key == pygame.K_f:
@@ -72,7 +80,21 @@ class AlienInvasion:
             self.ship.moving_right = False
         if event.key == pygame.K_LEFT:
             self.ship.moving_left = False
-
+    
+    def _fire_bullet(self):
+        """Create a new bullet and add it to the bullets group"""
+        if len(self.bullets) < self.settings.bullets_allowed:
+            new_bullet = Bullet(self)
+            self.bullets.add(new_bullet)
+    
+    def _update_bullets(self):
+        """Update position of bullets and get rid of old bullets"""
+        #update bullet positions
+        self.bullets.update()
+        #Get rid of bullets that have disappeared
+        for bullet in self.bullets.copy():
+            if bullet.rect.bottom <= 0:
+                self.bullets.remove(bullet)
 
 if __name__ == '__main__':
     #Make a game instance,and then run the game
