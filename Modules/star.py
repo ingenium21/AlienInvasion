@@ -10,8 +10,8 @@ class Star(Sprite):
         self.settings = ai_game.settings
 
         #load the star image and set its rect attribute
-        self.image = pygame.image.load('images/star.bmp')
-        self.image = pygame.transform.scale(self.image, (5, 5))
+        self.image = pygame.image.load('images/star.png')
+        self.image = pygame.transform.scale(self.image, (10, 10))
         self.rect = self.image.get_rect()
 
         #set star rect at top left position
@@ -20,7 +20,13 @@ class Star(Sprite):
 
         #save exact position of star
         self.x = float(self.rect.x)
+        self.y = float(self.rect.y)
 
     def blitme(self):
         """Draw the star at its current location."""
         self.screen.blit(self.image, self.rect)
+
+    def update(self):
+        """Move the star down """
+        self.y += self.settings.star_speed
+        self.rect.y = self.y
