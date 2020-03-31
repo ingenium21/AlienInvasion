@@ -8,6 +8,7 @@ from Modules.ship import Ship
 from Modules.bullets import Bullet
 from Modules.alien import Alien
 from Modules.game_stats import GameStats
+from Modules.star import Star
 
 class AlienInvasion:
     """Overrall class to manage game assets and behavior"""
@@ -25,12 +26,14 @@ class AlienInvasion:
         #Create an instance to store game statistics
         self.stats = GameStats(self)
 
+        #import the stars
+        self.stars = pygame.sprite.Group()
         #import the ship and make an instance of it
         self.ship = Ship(self)
         #import the bullet sprites
         self.bullets = pygame.sprite.Group()
+        #import the alien sprites
         self.aliens = pygame.sprite.Group()
-
         self._create_fleet()
 
     def run_game(self):
@@ -142,6 +145,9 @@ class AlienInvasion:
         alien.rect.x = alien.x
         alien.rect.y = alien.rect.height + 2 * alien.rect.height * row_number
         self.aliens.add(alien)
+    
+    def _create_star(self, ai_settings, screen, star_number):
+        """Create a star and place it in its location in a row"""
 
     def _update_aliens(self):
         """
