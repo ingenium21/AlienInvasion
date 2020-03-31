@@ -2,12 +2,14 @@
 import sys
 from time import sleep
 import pygame
+import random
 
 from Modules.settings import Settings
 from Modules.ship import Ship
 from Modules.bullets import Bullet
 from Modules.alien import Alien
 from Modules.game_stats import GameStats
+from Modules.star import Star
 
 class AlienInvasion:
     """Overrall class to manage game assets and behavior"""
@@ -25,24 +27,38 @@ class AlienInvasion:
         #Create an instance to store game statistics
         self.stats = GameStats(self)
 
+        #importing the clock function 
+        #import the stars
+        self.stars = pygame.sprite.Group()
+        self._create_stars()
         #import the ship and make an instance of it
         self.ship = Ship(self)
         #import the bullet sprites
         self.bullets = pygame.sprite.Group()
+        #import the alien sprites
         self.aliens = pygame.sprite.Group()
-
         self._create_fleet()
 
     def run_game(self):
+        time_elapsed = 0
+        clock = pygame.time.Clock()
+
         """Start the main loop for the game."""
         while True:
+            dt = clock.tick()
+
+            time_elapsed += dt
+
             #Watch for keyboard and mouse events
             self._check_events()
-
             if self.stats.game_active:
                 self.ship.update()
                 self._update_bullets()
                 self._update_aliens()
+                if time_elapsed > 500:
+                    self._create_stars()
+                    time_elapsed = 0
+                self._update_star()
             self._update_screen()
 
     def _check_events(self):
@@ -59,6 +75,8 @@ class AlienInvasion:
         """Update images on the screen and flip to a new screen"""
         #Redarw the screen during each pass through the loop
         self.screen.fill(self.settings.bg_color)
+        #draw the stars
+        self.stars.draw(self.screen)
         #draw the ship
         self.ship.blitme()
         for bullet in self.bullets.sprites():
@@ -135,14 +153,29 @@ class AlienInvasion:
                 self._create_alien(alien_number, row_number)
     
     def _create_alien(self, alien_number, row_number):
-        #Create an alien and place it in the row.
+        """Create an alien and place it in the row."""
         alien = Alien(self)
         alien_width = alien.rect.width
         alien.x = alien_width + 2*alien_width*alien_number
         alien.rect.x = alien.x
         alien.rect.y = alien.rect.height + 2 * alien.rect.height * row_number
         self.aliens.add(alien)
+    
+    def _create_stars(self):
+        """Create a fleet star and place it in its location in a row"""
+        #Make a star
+        star = Star(self)
+        star.rect.x = random.randint(1, 1024)
+        self.stars.add(star)
 
+    
+    def _update_star(self):
+        """move the star downward"""
+        self.stars.update()
+        for star in self.stars.copy():
+            if star.rect.top >= self.settings.screen_height:
+                self.stars.remove(star)
+    
     def _update_aliens(self):
         """
         Check if the fleet is at an edge,

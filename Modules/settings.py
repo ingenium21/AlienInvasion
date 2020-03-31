@@ -6,7 +6,7 @@ class Settings:
         #Screen Settings
         self.screen_width = 1024
         self.screen_height = 768
-        self.bg_color = (230, 230, 230)
+        self.bg_color = (32, 32, 32)
 
         #ship settings
         self.ship_speed = 1.5
@@ -16,7 +16,7 @@ class Settings:
         self.bullet_speed = 1.0
         self.bullet_width = 3
         self.bullet_height = 15
-        self.bullet_color = (60, 60, 60)
+        self.bullet_color = (0, 255, 255)
         self.bullets_allowed = 4
 
         #alien settings
@@ -25,3 +25,5 @@ class Settings:
         #fleet direction of 1 represents right, -1 represents left
         self.fleet_direction = 1
 
+        #star settings
+        self.star_speed = 2.0
