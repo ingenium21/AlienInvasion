@@ -38,27 +38,19 @@ class AlienInvasion:
         #import the alien sprites
         self.aliens = pygame.sprite.Group()
         self._create_fleet()
+        self._create_stars()
+
 
     def run_game(self):
-        time_elapsed = 0
-        clock = pygame.time.Clock()
-
         """Start the main loop for the game."""
         while True:
-            dt = clock.tick()
-
-            time_elapsed += dt
-
             #Watch for keyboard and mouse events
             self._check_events()
             if self.stats.game_active:
                 self.ship.update()
                 self._update_bullets()
                 self._update_aliens()
-                if time_elapsed > 500:
-                    self._create_stars()
-                    time_elapsed = 0
-                self._update_star()
+                # self._update_star()
             self._update_screen()
 
     def _check_events(self):
@@ -164,17 +156,19 @@ class AlienInvasion:
     def _create_stars(self):
         """Create a fleet star and place it in its location in a row"""
         #Make a star
-        star = Star(self)
-        star.rect.x = random.randint(1, 1024)
-        self.stars.add(star)
+        for _ in range(20):
+            star = Star(self)
+            star.rect.x = random.randint(1, self.settings.screen_width)
+            star.rect.y = random.randint(1, self.settings.screen_width)
+            self.stars.add(star)
 
     
-    def _update_star(self):
-        """move the star downward"""
-        self.stars.update()
-        for star in self.stars.copy():
-            if star.rect.top >= self.settings.screen_height:
-                self.stars.remove(star)
+    # def _update_star(self):
+    #     """move the star downward"""
+    #     self.stars.update()
+    #     for star in self.stars.copy():
+    #         if star.rect.top >= self.settings.screen_height:
+    #             self.stars.remove(star)
     
     def _update_aliens(self):
         """
