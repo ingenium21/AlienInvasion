@@ -154,7 +154,7 @@ class AlienInvasion:
         self.aliens.add(alien)
     
     def _create_stars(self):
-        """Create a fleet star and place it in its location in a row"""
+        """Create a fleet of stars and place them in their random locations"""
         #Make a star
         for _ in range(20):
             star = Star(self)
