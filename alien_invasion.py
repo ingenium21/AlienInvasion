@@ -38,6 +38,8 @@ class AlienInvasion:
         #import the alien sprites
         self.aliens = pygame.sprite.Group()
         self._create_fleet()
+
+        #import the stars
         self._create_stars()
 
 
