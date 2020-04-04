@@ -27,7 +27,6 @@ class AlienInvasion:
         #Create an instance to store game statistics
         self.stats = GameStats(self)
 
-        #importing the clock function 
         #import the stars
         self.stars = pygame.sprite.Group()
         self._create_stars()
@@ -52,7 +51,6 @@ class AlienInvasion:
                 self.ship.update()
                 self._update_bullets()
                 self._update_aliens()
-                # self._update_star()
             self._update_screen()
 
     def _check_events(self):
@@ -154,6 +152,22 @@ class AlienInvasion:
         alien.rect.x = alien.x
         alien.rect.y = alien.rect.height + 2 * alien.rect.height * row_number
         self.aliens.add(alien)
+
+    def _update_aliens(self):
+        """
+        Check if the fleet is at an edge,
+        then update the positions of all aliens in the fleet
+        """
+        self._check_fleet_edges()
+        self.aliens.update()
+
+        #look for alien-ship collision
+        if pygame.sprite.spritecollideany(self.ship, self.aliens):
+            self._ship_hit()
+        
+        #look for aliens hitting the bottom of the screen.
+        self._check_aliens_bottom()
+
     
     def _create_stars(self):
         """Create a fleet of stars and place them in their random locations"""
@@ -172,20 +186,6 @@ class AlienInvasion:
     #         if star.rect.top >= self.settings.screen_height:
     #             self.stars.remove(star)
     
-    def _update_aliens(self):
-        """
-        Check if the fleet is at an edge,
-        then update the positions of all aliens in the fleet
-        """
-        self._check_fleet_edges()
-        self.aliens.update()
-
-        #look for alien-ship collision
-        if pygame.sprite.spritecollideany(self.ship, self.aliens):
-            self._ship_hit()
-        
-        #look for aliens hitting the bottom of the screen.
-        self._check_aliens_bottom()
     
     def _check_fleet_edges(self):
         """Respond appropriately if any aliens have reached an edge."""
