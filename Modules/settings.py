@@ -25,5 +25,12 @@ class Settings:
         #fleet direction of 1 represents right, -1 represents left
         self.fleet_direction = 1
 
+        #how quickly the game speeds up
+        self.speedup_scale = 1.1
+
         #star settings
         self.star_speed = 2.0
+
+    def initialize_dynamic_settings(self):
+        """Initialize settings that change throughout the game."""
+        
