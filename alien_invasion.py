@@ -82,8 +82,10 @@ class AlienInvasion:
         #draw the aliens
         self.aliens.draw(self.screen)
 
+        #draw the play button
         if not self.stats.game_active:
             self.play_button.draw_button()
+            
         #Make the most recently drawn screen visible
         pygame.display.flip()
     
