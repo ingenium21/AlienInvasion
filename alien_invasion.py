@@ -43,9 +43,11 @@ class AlienInvasion:
         #create the play button
         self.play_button = Button(self, "Play")
         #difficulty buttons
-        self.easy_button = Button(self, "Easy", "topleft")
-        self.normal_button = Button(self, "Normal", "midtop")
-        self.hard_button = Button(self, "Hard", "topright")
+        self.easy_button = Button(self, "Easy", "midleft")
+        self.normal_button = Button(self, "Normal", "center")
+        self.normal_button.button_color = (255, 128, 0)
+        self.hard_button = Button(self, "Hard", "midright")
+        self.hard_button.button_color = (204, 0, 0)
 
 
     def run_game(self):
