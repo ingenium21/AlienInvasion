@@ -28,8 +28,11 @@ class Settings:
         #how quickly the game speeds up
         self.speedup_scale = 1.1
 
+        #set difficulty
+        self.difficulty_settings = False
+
     def initialize_dynamic_settings(self):
-        """Initialize settings that change throughout the game."""
+        """Initialize settings that change throughout the game for Normal difficulty"""
         self.bullet_speed = 1.0
         self.ship_speed = 1.5
         self.alien_speed = 1.0
@@ -42,4 +45,22 @@ class Settings:
         self.ship_speed *= self.speedup_scale
         self.bullet_speed *= self.speedup_scale
         self.alien_speed *= self.speedup_scale
-        
+    
+    def initialize_easy_settings(self):
+        """Initialize settings that change throughout the game for Easy difficulty."""
+        self.bullet_speed = 1.0
+        self.ship_speed = 1.5
+        self.alien_speed = 1.0
+
+        #fleet direction of 1 represents right, -1 represents left
+        self.fleet_direction = 1
+    
+    def initialize_hard_settings(self):
+        """Initialize settings that change throughout the game for Hard difficulty."""
+        self.bullet_speed = 1.0
+        self.ship_speed = 1.5
+        self.alien_speed = 1.0
+
+        #fleet direction of 1 represents right, -1 represents left
+        self.fleet_direction = 1
+    
