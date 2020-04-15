@@ -18,7 +18,7 @@ class Ship(Sprite):
 
         # Load the ship(feelsCoolMan) image and gets its rect.
         self.image = pygame.image.load('images/feelsCoolMan.bmp')
-        self.image = pygame.transform.scale(self.image, (100,100))
+        self.image = pygame.transform.scale(self.image, (75,75))
         self.rect = self.image.get_rect()
 
         #Start each new ship at the bottom center of the screen
