@@ -98,14 +98,8 @@ class AlienInvasion:
         #draw the scoreboard
         self.sb.show_score()
 
-        #draw the play button
-        if not self.stats.game_active and not self.settings.difficulty_settings:
-            self.play_button.draw_button()
-
-        elif self.settings.difficulty_settings and not self.stats.game_active:
-            self.easy_button.draw_button()
-            self.normal_button.draw_button()
-            self.hard_button.draw_button()
+        #draw the play and difficulty buttons
+        self._display_button_conditional()
             
         #Make the most recently drawn screen visible
         pygame.display.flip()
@@ -304,8 +298,15 @@ class AlienInvasion:
             #Reset the game settings with hard settings
             self.settings.initialize_hard_settings()
             self._start_game()
+    
+    def _display_button_conditional(self):
+        if not self.stats.game_active and not self.settings.difficulty_settings:
+            self.play_button.draw_button()
 
-            
+        elif self.settings.difficulty_settings and not self.stats.game_active:
+            self.easy_button.draw_button()
+            self.normal_button.draw_button()
+            self.hard_button.draw_button()
 
     def _start_game(self):
         #reset the game statistics
