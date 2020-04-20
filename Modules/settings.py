@@ -1,3 +1,5 @@
+"""Import pygame"""
+import pygame
 class Settings:
     """A class to store all settings for Alien Invasion."""
 
@@ -18,6 +20,9 @@ class Settings:
         self.bullet_height = 15
         self.bullet_color = (0, 255, 255)
         self.bullets_allowed = 4
+        #Bullet sound settings
+        self.bullet_sound = pygame.mixer.Sound("sounds/laser.ogg")
+        self.bullet_sound.set_volume(0.2)
 
         #alien settings
         self.alien_speed = 1.0
