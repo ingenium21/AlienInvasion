@@ -19,6 +19,12 @@ class AlienInvasion:
     def __init__(self):
         """initialize the game, and create game resources"""
         pygame.init()
+
+        #import the sounds
+        pygame.mixer.pre_init(44100, 16, 2, 8) #frequency, size, channels, buffersize
+        pygame.init() #turn all of pygame on.
+
+        #import the settings
         self.settings = Settings()
 
         #sets the window size and caption
@@ -113,6 +119,7 @@ class AlienInvasion:
         #Move the ship to the left
             self.ship.moving_left = True
         elif event.key == pygame.K_SPACE:
+            self.settings.bullet_sound.play()
             self._fire_bullet()
         elif event.key == pygame.K_q:
             self.stats.save_high_score()
